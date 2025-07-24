@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zerodha AI Trading Bot - Complete Guide</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Complete guide to setting up and using the Zerodha AI Trading Bot with step-by-step instructions, safety guidelines, and troubleshooting help.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="keywords" content="trading bot, zerodha, algorithmic trading, ai trading, indian stock market, automation">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Zerodha AI Trading Bot - Complete Guide">
+  <meta property="og:description" content="Learn to set up and use an AI-powered trading bot for the Indian stock market">
+  <meta property="og:site_name" content="Trading Bot Documentation">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Zerodha AI Trading Bot - Complete Guide">
+  <meta property="twitter:description" content="Complete documentation for setting up automated trading with AI">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+  
+  <!-- Docsify Theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  
+  <!-- Custom Styles -->
+  <style>
+    :root {
+      --base-font-size: 16px;
+      --theme-color: #42b883;
+      --accent-color: #ff6b6b;
+      --warning-color: #ffa726;
+      --danger-color: #ef5350;
+      --success-color: #66bb6a;
+    }
+    
+    /* Custom styling for better UX */
+    .app-nav {
+      position: fixed;
+      margin: 0;
+      padding: 10px 50px 10px 0;
+      width: calc(100vw - 325px);
+      background-color: #fff;
+      height: 55px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .sidebar {
+      padding-top: 0;
+    }
+    
+    .sidebar > h1 {
+      text-align: center;
+      margin: 0 auto 1rem auto;
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+    
+    .sidebar > h1 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    /* Warning boxes */
+    .docsify-tabs:before {
+      content: "";
+    }
+    
+    blockquote.warn {
+      border-left: 4px solid var(--warning-color);
+      background: #fff8e1;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    blockquote.danger {
+      border-left: 4px solid var(--danger-color);
+      background: #ffebee;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    blockquote.success {
+      border-left: 4px solid var(--success-color);
+      background: #e8f5e8;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    /* Code blocks */
+    pre {
+      background: #f8f8f8;
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    
+    /* Tables */
+    table {
+      border-collapse: collapse;
+      border: 1px solid #ddd;
+      margin: 1rem 0;
+    }
+    
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    
+    table th {
+      background-color: #f5f5f5;
+      font-weight: 600;
+    }
+    
+    /* Search box styling */
+    .search {
+      margin-bottom: 20px;
+      padding: 6px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    /* Progress indicator */
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 300px;
+      width: calc(100% - 300px);
+      height: 3px;
+      background: var(--theme-color);
+      z-index: 999;
+      transform-origin: left;
+    }
+    
+    /* Mobile responsiveness */
+    @media screen and (max-width: 768px) {
+      .app-nav {
+        width: 100vw;
+        left: 0;
+      }
+      
+      .progress {
+        left: 0;
+        width: 100%;
+      }
+    }
+    
+    /* Custom alert boxes */
+    .alert {
+      padding: 12px 16px;
+      margin: 16px 0;
+      border-radius: 4px;
+      border-left: 4px solid;
+    }
+    
+    .alert-warning {
+      background-color: #fff3cd;
+      border-color: #ffc107;
+      color: #856404;
+    }
+    
+    .alert-danger {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+      color: #721c24;
+    }
+    
+    .alert-success {
+      background-color: #d4edda;
+      border-color: #28a745;
+      color: #155724;
+    }
+    
+    .alert-info {
+      background-color: #d1ecf1;
+      border-color: #17a2b8;
+      color: #0c5460;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="progress"></div>
+    Loading documentation...
+  </div>
+  
+  <script>
+    window.$docsify = {
+      name: '🚀 Trading Bot Docs',
+      repo: 'https://github.com/p1c4ss0/fastbot-docs',
+      loadSidebar: true,
+      loadNavbar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      homepage: 'README.md',
+      
+      // Search configuration
+      search: {
+        maxAge: 86400000, // Expiration time, the default one day
+        paths: 'auto',
+        placeholder: 'Search documentation...',
+        noData: 'No results found.',
+        depth: 6,
+        hideOtherSidebarContent: false,
+      },
+      
+      // Copy code plugin
+      copyCode: {
+        buttonText: 'Copy',
+        errorText: 'Error',
+        successText: 'Copied!'
+      },
+      
+      // Tabs plugin
+      tabs: {
+        persist: true,
+        sync: true,
+        theme: 'classic',
+        tabComments: true,
+        tabHeadings: true
+      },
+      
+      // Pagination
+      pagination: {
+        crossChapter: true,
+        crossChapterText: true,
+      },
+      
+      // Progress bar
+      progress: {
+        position: "top",
+        color: "var(--theme-color)",
+        height: "3px",
+      },
+      
+      // External link target
+      externalLinkTarget: '_blank',
+      
+      // Corner external link
+      cornerExternalLinkTarget: '_blank',
+      
+      // Router mode
+      routerMode: 'hash',
+      
+      // Markdown configuration
+      markdown: {
+        smartypants: true,
+        renderer: {
+          code: function(code, lang) {
+            if (lang === 'mermaid') {
+              return '<div class="mermaid">' + mermaid.render(code) + '</div>';
+            }
+            return this.origin.code.apply(this, arguments);
+          }
+        }
+      },
+      
+      // Plugins
+      plugins: [
+        // Add edit on GitHub link
+        function(hook, vm) {
+          hook.beforeEach(function (html) {
+            var url = 'https://github.com/p1c4ss0/fastbot-docs/blob/main/docs/' + vm.route.file;
+            var editHtml = '[📝 Edit on GitHub](' + url + ')\\n';
+            return editHtml + html;
+          });
+        },
+        
+        // Add last updated time
+        function(hook, vm) {
+          hook.beforeEach(function(html) {
+            return html + '\\n\\n---\\n\\n*Last updated: ' + new Date().toLocaleDateString() + '*';
+          });
+        },
+        
+        // Add reading time estimate
+        function(hook, vm) {
+          hook.beforeEach(function(html) {
+            var wordCount = html.split(' ').length;
+            var readingTime = Math.ceil(wordCount / 200); // Average reading speed
+            return '⏱️ *Estimated reading time: ' + readingTime + ' minutes*\\n\\n' + html;
+          });
+        }
+      ]
+    }
+  </script>
+  
+  <!-- Docsify core -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  
+  <!-- Search plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  
+  <!-- Copy code plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  
+  <!-- Pagination plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  
+  <!-- Tabs plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  
+  <!-- Progress bar -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-progress@1"></script>
+  
+  <!-- Zoom image -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  
+  <!-- External script plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
+  
+  <!-- Emoji plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  
+  <!-- Prism highlighting for various languages -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  
+  <!-- Google Analytics (replace with your tracking ID) -->
+  <script>
+    if (typeof gtag !== 'undefined') {
+      gtag('config', 'GA_TRACKING_ID', {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    }
+  </script>
+  
+  <!-- Custom JavaScript -->
+  <script>
+    // Add custom functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add safety warnings to navigation
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar) {
+        const warningBanner = document.createElement('div');
+        warningBanner.className = 'alert alert-warning';
+        warningBanner.style.margin = '1rem';
+        warningBanner.style.fontSize = '0.9rem';
+        warningBanner.innerHTML = '⚠️ <strong>Important:</strong> Read the <a href="#/SAFETY_GUIDE">Safety Guide</a> before trading with real money!';
+        sidebar.appendChild(warningBanner);
+      }
+      
+      // Add progress tracking
+      let progress = 0;
+      const progressBar = document.querySelector('.progress');
+      
+      // Simple progress tracking based on scroll
+      window.addEventListener('scroll', function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        
+        if (progressBar) {
+          progressBar.style.transform = `scaleX(${scrolled / 100})`;
+        }
+      });
+      
+      // Add keyboard shortcuts
+      document.addEventListener('keydown', function(e) {
+        // Ctrl/Cmd + K to focus search
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          const searchInput = document.querySelector('.search input[type="search"]');
+          if (searchInput) {
+            searchInput.focus();
+          }
+        }
+        
+        // ESC to clear search
+        if (e.key === 'Escape') {
+          const searchInput = document.querySelector('.search input[type="search"]');
+          if (searchInput && searchInput === document.activeElement) {
+            searchInput.value = '';
+            searchInput.blur();
+          }
+        }
+      });
+    });
+    
+    // Add custom copy functionality for code blocks
+    function addCopyButtons() {
+      const codeBlocks = document.querySelectorAll('pre code');
+      codeBlocks.forEach(function(codeBlock) {
+        const button = document.createElement('button');
+        button.className = 'copy-btn';
+        button.textContent = 'Copy';
+        button.addEventListener('click', function() {
+          navigator.clipboard.writeText(codeBlock.textContent).then(function() {
+            button.textContent = 'Copied!';
+            setTimeout(function() {
+              button.textContent = 'Copy';
+            }, 2000);
+          });
+        });
+        codeBlock.parentNode.appendChild(button);
+      });
+    }
+    
+    // Initialize after Docsify loads
+    setTimeout(addCopyButtons, 1000);
+  </script>
+</body>
+</html>
