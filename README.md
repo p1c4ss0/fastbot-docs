@@ -27,9 +27,8 @@
 
 FastBot is an advanced AI-enhanced trading bot designed for the Indian stock market through Zerodha integration. It combines:
 
-- **🧠 AI Intelligence**: Hybrid LSTM + Random Forest models with 80%+ accuracy
+- **🧠 AI Intelligence**: XGBOOST model with 75%+ accuracy
 - **📊 Advanced Analytics**: 125-point scoring system with news integration
-- **🎯 Smart Targeting**: Fibonacci-based targets (T1: 23.6%, T2: 38.2%, T3: 61.8%)
 - **🛡️ Risk Management**: Dynamic stop-loss with trailing capabilities
 - **📈 Real-time Analysis**: Technical indicators, volume analysis, and market sentiment
 
